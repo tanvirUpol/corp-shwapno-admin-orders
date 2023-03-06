@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import React, { useRef } from 'react';
 
 const Orders = () => {
     const [list, setList] = useState([])
@@ -12,35 +13,34 @@ const Orders = () => {
             
     }, [])
 
-    // print after page has loaded
-    useEffect(() => {
-       if(list.length>0){
-        window.print()
-       }
-    }, [list]);
-
-    // close after downloading
-    window.addEventListener('afterprint', (event) => {
-        window.close()
-      });
-    
-    // console.log(userData.user);
-    window.addEventListener('afterprint', (event) => {
-        console.log('After print');
-    });
-
+ 
     const userData = list.find(item => item._id === "640484b3c924d0056bb0b898")
    
+        // get reff and open the table in new tab
+      const printTableRef = useRef(null);
+    
+      function handlePrintClick() {
+        const printTable = printTableRef.current;
+        printTable.style.display = 'block';
+        const newWin = window.open('Data');
+        newWin.document.write(printTable.outerHTML);
+        newWin.document.close();
+        newWin.print();
+        printTable.style.display = 'none';
+        newWin.close();
+      }
+    
 
 
   return (
     
     
-    
     <div>
+        <p>Hello darkness my old friend</p>
+         <button onClick={handlePrintClick}>Print</button>   
         { (list.length > 0 ?
-            <div>
-                <div className="company-details">
+            <div id="printTable" ref={printTableRef} style={{display:'none'}} >
+                <div  className="company-details" >
                     <ul>
                         <li>Company ID: {userData.user.client_id}</li>
                         <li>Company name: {userData.user.company_name}</li>
