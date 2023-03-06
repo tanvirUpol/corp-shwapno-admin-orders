@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 const List = () => {
 function handleClick() {
     window.open('/orders', 'Example',
-    'width=800,height=600,left=200,top=100');
+    'width=1000,height=800,left=200,top=100');
     
     }
 

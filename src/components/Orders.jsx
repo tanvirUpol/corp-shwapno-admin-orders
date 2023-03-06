@@ -24,11 +24,15 @@ const Orders = () => {
         window.close()
       });
     
-    const userData = list[0]
     // console.log(userData.user);
     window.addEventListener('afterprint', (event) => {
         console.log('After print');
     });
+
+    const userData = list.find(item => item._id === "640484b3c924d0056bb0b898")
+   
+
+
   return (
     
     
@@ -57,7 +61,7 @@ const Orders = () => {
                         </thead>
                         <tbody>
                             {userData.products.map(item=>
-                                <tr>
+                                <tr key={item.code} >
                                     <td>{item.code}</td>
                                     <td>{item.category}</td>
                                     <td>{item.division}</td>
@@ -73,8 +77,6 @@ const Orders = () => {
             <p>Data koi</p>)
             
         }
-        {/* <button onlo={()=>window.print()}>Print this page</button> */}
-
     </div>
   )
 }
